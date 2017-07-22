@@ -4,7 +4,7 @@
 #
 Name     : perl-Test-NoWarnings
 Version  : 1.04
-Release  : 10
+Release  : 11
 URL      : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Source0  : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Summary  : "Make sure you didn't emit any warnings while testing"
@@ -30,6 +30,10 @@ doc components for the perl-Test-NoWarnings package.
 %setup -q -n Test-NoWarnings-1.04
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
+export LANG=C
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make V=1  %{?_smp_mflags}
@@ -39,9 +43,10 @@ else
 fi
 
 %check
+export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make TEST_VERBOSE=1 test
 
 %install
@@ -58,8 +63,8 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.24.0/Test/NoWarnings.pm
-/usr/lib/perl5/site_perl/5.24.0/Test/NoWarnings/Warning.pm
+/usr/lib/perl5/site_perl/5.26.0/Test/NoWarnings.pm
+/usr/lib/perl5/site_perl/5.26.0/Test/NoWarnings/Warning.pm
 
 %files doc
 %defattr(-,root,root,-)
