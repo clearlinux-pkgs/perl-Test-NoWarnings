@@ -4,13 +4,14 @@
 #
 Name     : perl-Test-NoWarnings
 Version  : 1.04
-Release  : 16
+Release  : 17
 URL      : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Source0  : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Summary  : "Make sure you didn't emit any warnings while testing"
 Group    : Development/Tools
 License  : LGPL-2.1
-Requires: perl-Test-NoWarnings-doc
+Requires: perl-Test-NoWarnings-license = %{version}-%{release}
+BuildRequires : buildreq-cpan
 
 %description
 NAME
@@ -18,12 +19,21 @@ Test::NoWarnings - Make sure you didn't emit any warnings while testing
 SYNOPSIS
 For scripts that have no plan
 
-%package doc
-Summary: doc components for the perl-Test-NoWarnings package.
-Group: Documentation
+%package dev
+Summary: dev components for the perl-Test-NoWarnings package.
+Group: Development
+Provides: perl-Test-NoWarnings-devel = %{version}-%{release}
 
-%description doc
-doc components for the perl-Test-NoWarnings package.
+%description dev
+dev components for the perl-Test-NoWarnings package.
+
+
+%package license
+Summary: license components for the perl-Test-NoWarnings package.
+Group: Default
+
+%description license
+license components for the perl-Test-NoWarnings package.
 
 
 %prep
@@ -36,7 +46,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 else
 %{__perl} Build.PL
 ./Build
@@ -51,10 +61,12 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-Test-NoWarnings
+cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Test-NoWarnings/LICENSE
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -63,9 +75,13 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/Test/NoWarnings.pm
-/usr/lib/perl5/site_perl/5.26.1/Test/NoWarnings/Warning.pm
+/usr/lib/perl5/vendor_perl/5.26.1/Test/NoWarnings.pm
+/usr/lib/perl5/vendor_perl/5.26.1/Test/NoWarnings/Warning.pm
 
-%files doc
+%files dev
 %defattr(-,root,root,-)
-%doc /usr/share/man/man3/*
+/usr/share/man/man3/Test::NoWarnings.3
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-Test-NoWarnings/LICENSE
