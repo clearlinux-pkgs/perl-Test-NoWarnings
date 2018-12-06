@@ -4,7 +4,7 @@
 #
 Name     : perl-Test-NoWarnings
 Version  : 1.04
-Release  : 19
+Release  : 20
 URL      : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Source0  : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Summary  : "Make sure you didn't emit any warnings while testing"
