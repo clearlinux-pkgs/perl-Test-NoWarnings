@@ -4,10 +4,10 @@
 #
 Name     : perl-Test-NoWarnings
 Version  : 1.04
-Release  : 25
+Release  : 26
 URL      : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Source0  : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
-Summary  : "Make sure you didn't emit any warnings while testing"
+Summary  : Make sure you didn't emit any warnings while testing
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: perl-Test-NoWarnings-license = %{version}-%{release}
@@ -23,6 +23,7 @@ For scripts that have no plan
 Summary: dev components for the perl-Test-NoWarnings package.
 Group: Development
 Provides: perl-Test-NoWarnings-devel = %{version}-%{release}
+Requires: perl-Test-NoWarnings = %{version}-%{release}
 
 %description dev
 dev components for the perl-Test-NoWarnings package.
