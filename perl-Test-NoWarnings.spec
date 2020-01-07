@@ -4,13 +4,14 @@
 #
 Name     : perl-Test-NoWarnings
 Version  : 1.04
-Release  : 30
+Release  : 31
 URL      : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Source0  : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
-Summary  : Make sure you didn't emit any warnings while testing
+Summary  : "Make sure you didn't emit any warnings while testing"
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: perl-Test-NoWarnings-license = %{version}-%{release}
+Requires: perl-Test-NoWarnings-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -37,14 +38,24 @@ Group: Default
 license components for the perl-Test-NoWarnings package.
 
 
+%package perl
+Summary: perl components for the perl-Test-NoWarnings package.
+Group: Default
+Requires: perl-Test-NoWarnings = %{version}-%{release}
+
+%description perl
+perl components for the perl-Test-NoWarnings package.
+
+
 %prep
 %setup -q -n Test-NoWarnings-1.04
+cd %{_builddir}/Test-NoWarnings-1.04
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -54,7 +65,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -63,7 +74,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Test-NoWarnings
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Test-NoWarnings/LICENSE
+cp %{_builddir}/Test-NoWarnings-1.04/LICENSE %{buildroot}/usr/share/package-licenses/perl-Test-NoWarnings/cf756914ec51f52f9c121be247bfda232dc6afd2
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -76,8 +87,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Test/NoWarnings.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Test/NoWarnings/Warning.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -85,4 +94,9 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Test-NoWarnings/LICENSE
+/usr/share/package-licenses/perl-Test-NoWarnings/cf756914ec51f52f9c121be247bfda232dc6afd2
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Test/NoWarnings.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Test/NoWarnings/Warning.pm
