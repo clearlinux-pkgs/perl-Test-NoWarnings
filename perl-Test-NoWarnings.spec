@@ -4,7 +4,7 @@
 #
 Name     : perl-Test-NoWarnings
 Version  : 1.04
-Release  : 33
+Release  : 34
 URL      : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Source0  : http://search.cpan.org/CPAN/authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
 Summary  : "Make sure you didn't emit any warnings while testing"
@@ -98,5 +98,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.3/Test/NoWarnings.pm
-/usr/lib/perl5/vendor_perl/5.30.3/Test/NoWarnings/Warning.pm
+/usr/lib/perl5/vendor_perl/5.32.1/Test/NoWarnings.pm
+/usr/lib/perl5/vendor_perl/5.32.1/Test/NoWarnings/Warning.pm
