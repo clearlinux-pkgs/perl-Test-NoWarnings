@@ -4,12 +4,13 @@
 #
 Name     : perl-Test-NoWarnings
 Version  : 1.06
-Release  : 42
+Release  : 43
 URL      : https://cpan.metacpan.org/authors/id/H/HA/HAARG/Test-NoWarnings-1.06.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/H/HA/HAARG/Test-NoWarnings-1.06.tar.gz
 Summary  : "Make sure you didn't emit any warnings while testing"
 Group    : Development/Tools
 License  : LGPL-2.1
+Requires: perl-Test-NoWarnings-license = %{version}-%{release}
 Requires: perl-Test-NoWarnings-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
@@ -27,6 +28,14 @@ Requires: perl-Test-NoWarnings = %{version}-%{release}
 
 %description dev
 dev components for the perl-Test-NoWarnings package.
+
+
+%package license
+Summary: license components for the perl-Test-NoWarnings package.
+Group: Default
+
+%description license
+license components for the perl-Test-NoWarnings package.
 
 
 %package perl
@@ -64,6 +73,8 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-Test-NoWarnings
+cp %{_builddir}/Test-NoWarnings-1.06/LICENSE %{buildroot}/usr/share/package-licenses/perl-Test-NoWarnings/07453eb5195c4d0e37d3dea6270c6ea82432cc49
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -81,7 +92,10 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 %defattr(-,root,root,-)
 /usr/share/man/man3/Test::NoWarnings.3
 
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-Test-NoWarnings/07453eb5195c4d0e37d3dea6270c6ea82432cc49
+
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.34.0/Test/NoWarnings.pm
-/usr/lib/perl5/vendor_perl/5.34.0/Test/NoWarnings/Warning.pm
+/usr/lib/perl5/*
