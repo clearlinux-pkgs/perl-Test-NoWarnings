@@ -5,7 +5,7 @@
 #
 Name     : perl-Test-NoWarnings
 Version  : 1.06
-Release  : 44
+Release  : 45
 URL      : https://cpan.metacpan.org/authors/id/H/HA/HAARG/Test-NoWarnings-1.06.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/H/HA/HAARG/Test-NoWarnings-1.06.tar.gz
 Summary  : "Make sure you didn't emit any warnings while testing"
